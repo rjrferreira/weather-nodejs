@@ -27,7 +27,7 @@
 $ npm i -S express
 $ npm i simple-node-logger
 $ npm i openweathermap-node
-$ npm install node-cache
+$ npm i node-cache
 ```
 
 ---
