@@ -6,7 +6,6 @@
 
 - [Installation](#installation)
 - [Run](#run)
-- [License](#license)
 
 ---
 
