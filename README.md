@@ -43,7 +43,7 @@ Server runs on local port 3000. Please ensure this port is available.
 $ npm start
 ```
 
-- Then, open `weather-page` folder and open `index.html` on Chrome
+- Then, go to `weather-page` folder and open `index.html` on Chrome
 
 ### Logging
 
