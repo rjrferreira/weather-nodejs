@@ -1,0 +1,32 @@
+
+button {
+  cursor: pointer;
+}
+
+.form-section form .msg {
+  color: red;
+}
+
+.updatable-section {
+  margin: 40px 0 20px;
+}
+
+.container-table {
+  padding-bottom: 40px;
+}
+
+.container-table table {
+  border-spacing: 0;
+}
+
+.container-table table thead tr th {
+  font-weight: bold;
+  padding: 1px 1px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.container-table table tbody tr td {
+  text-align: center;
+  padding: 5px 20px;
+}
