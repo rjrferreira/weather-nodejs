@@ -21,7 +21,7 @@
 
 ### Setup
 
-> update and install this packages first
+- update and install this packages first
 
 ```shell
 $ npm i -S express
