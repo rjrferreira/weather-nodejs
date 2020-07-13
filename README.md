@@ -24,10 +24,11 @@
 - update and install this packages first
 
 ```shell
-$ npm i -S express
-$ npm i simple-node-logger
-$ npm i openweathermap-node
-$ npm i node-cache
+$ npm i express --save
+$ npm i simple-node-logger --save
+$ npm i openweathermap-node --save
+$ npm i node-cache --save
+$ npm i cors --save
 ```
 
 ---
@@ -37,12 +38,16 @@ $ npm i node-cache
 ### NodeJS server
 
 - On root path of the project:
+Server runs on local port 3000. Please ensure this port is available.
 
 ```shell
 $ npm start
 ```
 
-- Then, open `weather-page` folder and open `index.html` on Chrome
+- Then, go to `weather-page` folder and open `index.html` on Chrome
 
+### Logging
 
+- Open `express-weather-api.log` for log history
 
+---
