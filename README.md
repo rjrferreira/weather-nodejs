@@ -28,6 +28,7 @@ $ npm i express --save
 $ npm i simple-node-logger --save
 $ npm i openweathermap-node --save
 $ npm i node-cache --save
+$ npm i cors --save
 ```
 
 ---
