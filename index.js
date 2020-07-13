@@ -42,7 +42,7 @@ app.get("/:city", function(request, response){
     helper.getCurrentWeatherByCityName(city, (err, currentWeather) => {
       if(err){
         log.error(err);
-        response.send("Opss");
+        response.send("An unexpected error occurred");
       }
       else{
         log.debug("Data sucessfully retrieved");

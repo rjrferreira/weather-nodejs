@@ -29,14 +29,6 @@ document.querySelector(".form-section form").addEventListener("submit", e => {
       localStorage.setItem(data.name.toLowerCase(), JSON.stringify(data));
 
       const { main, name, sys } = data;
-
-/*       const li = document.createElement("li");
-      li.classList.add("city");
-      li.innerHTML = `
-        <span class="city-name" data-name="${name}">${name} / ${Math.round(main.temp)}</span>
-      `;
-      graph_cities.appendChild(li); */
-
       const row = table_cities_body.insertRow(0);
       const cellName = row.insertCell(0);
       const cellTemp = row.insertCell(1);
@@ -50,12 +42,9 @@ document.querySelector(".form-section form").addEventListener("submit", e => {
       let sunsetDate = new Date(sys.sunset * 1000);
       //let sunsetDate_formatted = sunsetDate.getFullYear() + "-" + (sunsetDate.getMonth() + 1) + "-" + sunsetDate.getDate() + " " + sunsetDate.getHours() + ":" + sunsetDate.getMinutes() + ":" + sunsetDate.getSeconds();
       cellDayEnd.innerHTML = sunsetDate;
-
-      //cellDayEnd1.innerHTML = new Date(sys.sunset * 1000);
       var length = chart.options.data[0].dataPoints.length;
 	    chart.options.data[0].dataPoints.push({ y: main.temp, label: name});
 	    chart.render();
-      //$('#keywords').tablesorter();
 
       $(".updatable-section .container-table .cities").trigger('update');
     })
@@ -73,7 +62,6 @@ $(function(){
 
   chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,
-
     title:{
     },
     axisX:{
@@ -83,7 +71,7 @@ $(function(){
     },
     data: [{
       type: "bar",
-      name: "companies",
+      name: "cities",
       axisYType: "secondary",
       color: "black",
       dataPoints: [
