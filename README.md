@@ -38,11 +38,13 @@ $ npm i cors --save
 ### NodeJS server
 
 - On root path of the project:
-Server runs on local port 3000. Please ensure this port is available.
 
 ```shell
 $ npm start
 ```
+
+Server runs on local port 3000. Please ensure this port is available.
+
 
 - Then, go to `weather-page` folder and open `index.html` on Chrome
 
