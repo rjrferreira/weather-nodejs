@@ -3,7 +3,7 @@ button {
   cursor: pointer;
 }
 
-.form-section form .msg {
+.form-section form .city-name {
   color: red;
 }
 
@@ -23,10 +23,18 @@ button {
   font-weight: bold;
   padding: 1px 1px;
   padding-left: 20px;
+  padding-right: 20px;
   cursor: pointer;
+  background-color: lightgray;
 }
 
 .container-table table tbody tr td {
   text-align: center;
   padding: 5px 20px;
 }
+
+.container-graph #chart-container {
+  height: 300px;
+}
+
+

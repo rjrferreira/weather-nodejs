@@ -7,7 +7,7 @@ app.use(cors());
 
 // Open Weather Map API
 const OpenWeatherMapHelper = require("openweathermap-node");
-const helper = new OpenWeatherMapHelper(
+const openWeatherMapHelper = new OpenWeatherMapHelper(
   {
       APPID: '4757e70d996ee03dbfbec7e658b28617',
       units: "metric"
@@ -33,20 +33,19 @@ app.get("/:city", function(request, response){
   var city = request.params.city;
   log.debug("Getting data from OpenWeather for: " + city);
 
-  dayWeatherKey = city + currentDate.getDate() + currentDate.getMonth() + currentDate.getFullYear();
-  log.debug("Reading cache for: " + dayWeatherKey);
-  currentWeather = weatherCache.get(dayWeatherKey);
+  log.debug("Reading cache for: " + city);
+  currentWeather = weatherCache.get(city.toLowerCase());
 
   if(currentWeather == undefined) {
     log.debug("Cache miss");
-    helper.getCurrentWeatherByCityName(city, (err, currentWeather) => {
+    openWeatherMapHelper.getCurrentWeatherByCityName(city, (err, currentWeather) => {
       if(err){
         log.error(err);
-        response.send("An unexpected error occurred");
+        response.send(err);
       }
       else{
         log.debug("Data sucessfully retrieved");
-        weatherCache.set(dayWeatherKey, currentWeather, 60 * 10); //10 minutes
+        weatherCache.set(city.toLowerCase(), currentWeather, 60 * 10); //10 minutes
         response.send(currentWeather);
         log.debug("Data sucessfully retrieved");
       }

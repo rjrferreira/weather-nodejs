@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Weather Info</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
   <section class="form-section">
@@ -13,7 +14,7 @@
       <form>
         <input type="text" placeholder="Search for a city" autofocus>
         <button type="submit">Submit</button>
-        <span class="msg"></span>
+        <span class="city-name"></span>
       </form>
     </div>
   </section>
@@ -26,16 +27,16 @@
             <th><span>Temperature</span></th>
             <th><span>Sunrise</span></th>
             <th><span>Sunset</span></th>
-            </tr>
-          </thead>
-          <tbody>
+          </tr>
+        </thead>
+        <tbody>
 
-          </tbody>
-        </table>
-      </div>
-      <div class="container-graph">
-        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-      </div>
+        </tbody>
+      </table>
+    </div>
+    <div class="container-graph">
+      <div id="chart-container"></div>
+    </div>
   </section>
   <footer class="page-footer">
   </footer>

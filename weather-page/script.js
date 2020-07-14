@@ -1,58 +1,75 @@
 const form = document.querySelector(".form-section form");
 const input = document.querySelector(".form-section input");
-const msg = document.querySelector(".form-section .msg");
+const city_name = document.querySelector(".form-section .city-name");
 const graph_cities = document.querySelector(".updatable-section .container-graph .cities");
 const table_cities_body = document.querySelector(".updatable-section .container-table .cities tbody");
-var chart;
-localStorage.clear();
+let chart;
+sessionStorage.clear();
 
+// prevent unnecessary calls
 document.querySelector(".form-section form").addEventListener("submit", e => {
   e.preventDefault();
   let inputVal = input.value;
 
-  //check if city is already selected
-  if (localStorage.length > 0) {
-    if (localStorage.getItem(inputVal.toLowerCase()) !== null) {
-      msg.textContent = `You already selected ${inputVal}`;
-      form.reset();
-      input.focus();
-      return;
+  if(inputVal.toLowerCase().length === 0){
+    city_name.textContent = "Please submit a City name";
+    form.reset();
+    input.focus();
+    return;
+  } else {
+    // check if city is already added
+    if (sessionStorage.length > 0) {
+      if (sessionStorage.getItem(inputVal.toLowerCase()) !== null) {
+        city_name.textContent = `You already selected ${inputVal}`;
+        form.reset();
+        input.focus();
+        return;
+      }
     }
   }
 
-  //node api url
+  // node api url
   const url = `http://localhost:3000/${inputVal}`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      localStorage.setItem(data.name.toLowerCase(), JSON.stringify(data));
 
-      const { main, name, sys } = data;
-      const row = table_cities_body.insertRow(0);
-      const cellName = row.insertCell(0);
-      const cellTemp = row.insertCell(1);
-      const cellDayStart = row.insertCell(2);
-      const cellDayEnd = row.insertCell(3);
-      cellName.innerHTML = name;
-      cellTemp.innerHTML = main.temp;
-      let sunriseDate = new Date(sys.sunrise * 1000);
-      //let sunriseDate_formatted = sunriseDate.getFullYear() + "-" + (sunriseDate.getMonth() + 1) + "-" + sunriseDate.getDate() + " " + sunriseDate.getHours() + ":" + sunriseDate.getMinutes() + ":" + sunriseDate.getSeconds() + ":" + sunriseDate.get();
-      cellDayStart.innerHTML = sunriseDate;
-      let sunsetDate = new Date(sys.sunset * 1000);
-      //let sunsetDate_formatted = sunsetDate.getFullYear() + "-" + (sunsetDate.getMonth() + 1) + "-" + sunsetDate.getDate() + " " + sunsetDate.getHours() + ":" + sunsetDate.getMinutes() + ":" + sunsetDate.getSeconds();
-      cellDayEnd.innerHTML = sunsetDate;
-      var length = chart.options.data[0].dataPoints.length;
-	    chart.options.data[0].dataPoints.push({ y: main.temp, label: name});
-	    chart.render();
+      if(data.status === "404") {
+        city_name.textContent = "Please search for a valid city";
+      } else {
 
-      $(".updatable-section .container-table .cities").trigger('update');
+        // Update sessionStorage with new City
+        sessionStorage.setItem(data.name.toLowerCase(), JSON.stringify(data));
+
+        // Get data
+        const { main, name, sys } = data;
+
+        // Create new table row
+        const row = table_cities_body.insertRow(0);
+        const cellName = row.insertCell(0);
+        const cellTemp = row.insertCell(1);
+        const cellDayStart = row.insertCell(2);
+        const cellDayEnd = row.insertCell(3);
+
+        // Fill cells
+        cellName.innerHTML = name;
+        cellTemp.innerHTML = main.temp;
+        cellDayStart.innerHTML = new Date(sys.sunrise * 1000);
+        cellDayEnd.innerHTML = new Date(sys.sunset * 1000);
+
+        // Update chart
+        chart.options.data[0].dataPoints.push({ y: main.temp, label: name});
+        chart.render();
+
+        $(".updatable-section .container-table .cities").trigger('update');
+      }
     })
-    .catch(() => {
-      msg.textContent = "Please search for a valid city";
+    .catch(error => {
+      city_name.textContent = "Invalid response. Please validate if server is online!!!";
     });
 
-  msg.textContent = "";
+  city_name.textContent = "";
   form.reset();
   input.focus();
 });
@@ -60,21 +77,22 @@ document.querySelector(".form-section form").addEventListener("submit", e => {
 $(function(){
   $(".updatable-section .container-table .cities").tablesorter();
 
-  chart = new CanvasJS.Chart("chartContainer", {
+  chart = new CanvasJS.Chart("chart-container", {
     animationEnabled: true,
+    theme: "light2",
     title:{
+      text: "Weather Info"
     },
-    axisX:{
-      interval: 1
-    },
-    axisY2:{
+    axisY: {
+      title: "in celsius"
     },
     data: [{
-      type: "bar",
-      name: "cities",
-      axisYType: "secondary",
-      color: "black",
+      type: "column",
+      showInLegend: true,
+      legendMarkerColor: "grey",
+      legendText: "City",
       dataPoints: [
+
       ]
     }]
   });
